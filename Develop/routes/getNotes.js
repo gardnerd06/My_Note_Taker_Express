@@ -1,7 +1,7 @@
 gn = require('express').Router();
 db = require('../db/db.json');
 
-gn.get('/', (req, res) => res.status(200).json(db)
+gn.get('/notes', (req, res) => res.sendFile(res.json(db))
 
 );
 gn.get('/', (req, res) => {
