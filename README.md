@@ -21,6 +21,8 @@ The purpose of this project is to create a note app that can save user data usin
 Daniel Gardner
 
 ## Screenshots
+![Screenshot (26)](https://user-images.githubusercontent.com/115792714/218298799-cec365ec-9ea2-4acf-91c2-8602547440b0.png)
+![Screenshot (27)](https://user-images.githubusercontent.com/115792714/218298802-2b899e1c-5ff4-47e6-8775-e7f5d736fbc2.png)
 
 ## How to Contribute
 
