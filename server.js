@@ -44,10 +44,10 @@ app.post('/api/notes', (req, res) => {
 
 
 
-// // will return homepage if given different url from original
-// app.get('*', (req, res) =>
-//     res.sendFile(path.join(__dirname, '/Develop/public/index.html'))
-// );
+// will return homepage if given different url from original
+app.get('*', (req, res) =>
+    res.sendFile(path.join(__dirname, '/Develop/public/index.html'))
+);
 
 
 
