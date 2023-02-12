@@ -1,10 +1,10 @@
 const express = require('express');
 const path = require('path');
-const db = require('./db/db.json')
+const db = require('./Develop/db/db.json')
 const fs = require('fs');
-const uuid = require('./helpers/uuid');
+const uuid = require('./Develop/helpers/uuid');
 const PORT = process.env.PORT || 3000;
-const { readFromFile, readAndAppend } = require('./helpers/fsUtils');
+const { readFromFile, readAndAppend } = require('./Develop/helpers/fsUtils');
 
 const app = express();
 
