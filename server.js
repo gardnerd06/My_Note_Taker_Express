@@ -19,7 +19,7 @@ app.get('/notes', (req, res,) =>
 
 );
 
-app.get('/api/notes', (req, res) => res.status(200).json(db));
+app.get('/api/notes', (req, res) => ((res.json(db))));
 
 app.post('/api/notes', (req, res) => {
     // Destructuring variable
@@ -35,8 +35,13 @@ app.post('/api/notes', (req, res) => {
         const newResponse = JSON.stringify(newNote);
         readAndAppend(newNote, './Develop/db/db.json');
 
-        console.log(newResponse);
-        res.status(200).json(db);
+        const response = {
+            status: 'success',
+            body: db,
+        };
+
+        console.log(response);
+        res.status(200).json(response);
     } else {
         res.status(500).json('Error in posting note');
     }
@@ -49,7 +54,7 @@ app.get('*', (req, res) =>
     res.sendFile(path.join(__dirname, '/Develop/public/index.html'))
 );
 
-
+app.delete(`/api/notes/*`, (req, res, next) => res.send(`Delete ${(req.originalUrl)} request Recieved`));
 
 
 app.listen(PORT, () => console.log(`Your app is launched here: http://localhost:${PORT}`));
