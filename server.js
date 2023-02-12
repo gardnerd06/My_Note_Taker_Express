@@ -1,6 +1,6 @@
 const express = require('express');
 const path = require('path');
-const db = require('./Develop/db/db.json')
+const db = require('./Develop/db/db.json');
 const fs = require('fs');
 const uuid = require('./Develop/helpers/uuid');
 const PORT = process.env.PORT || 3000;
@@ -14,17 +14,13 @@ app.use(express.json());
 
 
 // GET Route for notes main page
-app.get('/notes', (req, res,) =>
-    res.sendFile(path.join(__dirname, '/Develop/public/notes.html')),
+app.get('/notes', (req, res) => res.sendFile(path.join(__dirname, '/Develop/public/notes.html'),));
 
-);
-
-app.get('/api/notes', (req, res) => ((res.json(db))));
+app.get('/api/notes', (req, res) => readFromFile('./Develop/db/db.json').then((data) => res.json(JSON.parse(data))))
 
 app.post('/api/notes', (req, res) => {
     // Destructuring variable
     const { title, text } = req.body;
-
     if (title && text) {
         const newNote = {
             title,
@@ -36,12 +32,12 @@ app.post('/api/notes', (req, res) => {
         readAndAppend(newNote, './Develop/db/db.json');
 
         const response = {
-            status: 'success',
-            body: db,
+            title: 'success',
+            text: text
         };
 
-        console.log(response);
-        res.status(200).json(response);
+        console.log(newResponse);
+        res.status(200).json(newResponse);
     } else {
         res.status(500).json('Error in posting note');
     }
@@ -50,11 +46,11 @@ app.post('/api/notes', (req, res) => {
 
 
 // will return homepage if given different url from original
-app.get('*', (req, res) =>
-    res.sendFile(path.join(__dirname, '/Develop/public/index.html'))
-);
+// app.get('*', (req, res) =>
+//     res.sendFile(path.join(__dirname, '/Develop/public/index.html'))
+// );
 
-app.delete(`/api/notes/*`, (req, res, next) => res.send(`Delete ${(req.originalUrl)} request Recieved`));
+app.delete(`/api/notes/:id`, (req, res) => res.send(`Delete ${(req.params.id)} request Recieved`));
 
 
 app.listen(PORT, () => console.log(`Your app is launched here: http://localhost:${PORT}`));
