@@ -1,6 +1,6 @@
 const express = require('express');
 const path = require('path');
-let db = require('./Develop/db/db.json');
+const db = require('./Develop/db/db.json');
 const fs = require('fs');
 const uuid = require('./Develop/helpers/uuid');
 const PORT = process.env.PORT || 3000;
@@ -31,8 +31,6 @@ app.post('/api/notes', (req, res) => {
         const newResponse = JSON.stringify(newNote);
         readAndAppend(newNote, './Develop/db/db.json');
 
-
-        console.log(newResponse);
         res.status(200).json(newResponse);
     } else {
         res.status(500).json('Error in posting note');
@@ -46,31 +44,20 @@ app.get('/*', (req, res) =>
 );
 
 app.delete('/api/notes/:id', (req, res) => {
-    const id = req.params.id;
-
-    let array = db;
-    // const deleted = db.filter(db => db.id === id);
-    const findNote = db => db.id === id;
-    const foundNote = db.findIndex(findNote);
-    // const doc = db.splice(foundNote);
-    // console.log(doc);
-    delete array[foundNote];
-
-    const arr = array.filter((_, i) => i in array);
-    // console.log(findNote);
-    console.log(array);
-    console.log(arr);
-    // console.log(deleted);
-    // console.log(doc);
-
-
-
-    writeToFile('./Develop/db/db.json', arr);
-    // res.status(200).json(arr);
-    readFromFile('./Develop/db/db.json').then((data) => res.json(data));
+    if (res.status(200)) {
+        fs.readFile('./Develop/db.db.json', (err, data) => (data));
+        const id = req.params.id;
+        const array = db;
+        const findNote = array => array.id === id;
+        const foundNote = array.findIndex(findNote);
+        delete array[foundNote];
+        const arr = array.filter((_, i) => i in array);
+        writeToFile('./Develop/db/db.json', arr);
+        res.status(200).json(array);
+    } else {
+        res.status(404).json("No Note Found!")
+    }
 }
-
-    // res.status(404).json("No Note Found!")
 );
 
 
