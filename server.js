@@ -66,8 +66,8 @@ app.delete('/api/notes/:id', (req, res) => {
 
 
     writeToFile('./Develop/db/db.json', arr);
-    res.status(200).json(arr);
-    // readFromFile('./Develop/db/db.json').then((data) => res.json(data));
+    // res.status(200).json(arr);
+    readFromFile('./Develop/db/db.json').then((data) => res.json(data));
 }
 
     // res.status(404).json("No Note Found!")
