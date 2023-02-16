@@ -47,17 +47,27 @@ app.get('/*', (req, res) =>
 
 app.delete('/api/notes/:id', (req, res) => {
     const id = req.params.id;
-    const deleted = db.filter(db => db.id === id);
-    // const findNote = db => db.id === id;
-    // const foundNote = db.findIndex(findNote);
-    const doc = db.splice(0, db.length, deleted);
-    // console.log(doc);
-    // console.log(findNote);
-    console.log(doc);
-    console.log(deleted);
 
-    // writeToFile('./Develop/db/db.json', doc);
-    readFromFile('./Develop/db/db.json').then((data) => res.json(data));
+    let array = db;
+    // const deleted = db.filter(db => db.id === id);
+    const findNote = db => db.id === id;
+    const foundNote = db.findIndex(findNote);
+    // const doc = db.splice(foundNote);
+    // console.log(doc);
+    delete array[foundNote];
+
+    const arr = array.filter((_, i) => i in array);
+    // console.log(findNote);
+    console.log(array);
+    console.log(arr);
+    // console.log(deleted);
+    // console.log(doc);
+
+
+
+    writeToFile('./Develop/db/db.json', arr);
+    res.status(200).json(arr);
+    // readFromFile('./Develop/db/db.json').then((data) => res.json(data));
 }
 
     // res.status(404).json("No Note Found!")
